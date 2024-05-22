@@ -21,7 +21,7 @@ my_list = ['strawberry', 'raspberries', 'blackberry','blueberry', 'cloudberry', 
 print('Список: ', my_list)
 print('Первый элемент списка: ', my_list[0])
 print('Последний элемент списка: ', my_list[-1])
-print('Подсписок с третьего по пятый элемент списка: ',my_list[2],', ',my_list[3],', ',my_list[4])
+print('Подсписок с третьего по пятый элемент списка: ',my_list[2:5])
 my_list.append('cowberry')
 print('Измененный список: ', my_list)
 my_dict = {'strawberry':'клубника', 'raspberries':'малина','blackberry':'ежевика',
