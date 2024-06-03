@@ -16,8 +16,10 @@
 def single_root_words(root_word, *other_words):
     same_words = list()
     list_words = list(other_words)
-    for i in range(len(list_words)):
-        if (root_word.lower() in list_words[i].lower()) or (list_words[i].lower() in root_word.lower()):
+    lowercase_list = [s.lower() for s in list_words]
+    root_word_lower = root_word.lower()
+    for i in range(len(lowercase_list)):
+        if (root_word_lower in lowercase_list[i]) or (lowercase_list[i] in root_word_lower):
             same_words.append(list_words[i])
     return same_words
 
