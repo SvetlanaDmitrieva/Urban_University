@@ -15,6 +15,7 @@
 # Добавляет в файл __file_name каждый продукт из products, если его ещё нет в файле (по названию).
 # Если такой продукт уже есть, то не добавляет и выводит строку 'Продукт <название> уже есть в магазине' .
 
+
 class Product():
     def __init__(self, name, weight, category):
         self.name = name
@@ -22,35 +23,30 @@ class Product():
         self.category = category
 
     def __str__(self):
-        return self.name + ', ' + str(self.weight) + ', ' + self.category
-
+        return f'{self.name}, {str(self.weight)}, {self.category}'
 
 class Shop():
-    __file_name = 'products.txt'
+    def __init__(self):
+        self.__file_name = 'products.txt'
 
     def get_products(self):
         with open(self.__file_name, mode = 'r') as file:
-            if file.readable():
-                print(file.read())
-                return
-            print(f'Прочесть {self.__file_name} невозможно')
-            return
+            str_products = file.read()
+            return str_products
 
     def add(self, *products):
         with open(self.__file_name, mode='a+') as file:
             for product in products:
                 file.seek(0)
-                name_product = product.name
                 fl = 0
                 for item in file:
                     words = item.split(', ')
-                    if words[0] == name_product:
-                        print(f'Продукт {name_product} уже есть в магазине')
+                    if words[0] == product.name:
+                        print(f'Продукт {product.name} уже есть в магазине')
                         fl = 1
                         break
                 if fl == 0:
-                    str_product = product.name + ', ' + str(product.weight) + ', ' + product.category + " \n"
-                    file.write(str_product)
+                    file.write(product.name + ', ' + str(product.weight) + ', ' + product.category + " \n")
 
 
 s1 = Shop()
