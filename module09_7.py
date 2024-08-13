@@ -8,7 +8,7 @@ from functools import reduce
 
 
 def is_prime(func):
-    def inner(*args):
+    def wrapper(*args):
         summ_numbers = func(*args)
         k = 0
         for i in range(2, summ_numbers // 2 + 1):
@@ -19,16 +19,16 @@ def is_prime(func):
             print("Простое")
         else:
             print("Составное")
-        print(summ_numbers)
+        return summ_numbers
+    return wrapper
 
-    return inner
 
-
+@is_prime
 def sum_three(*args):
     numbers_list = list(args)
     summ = reduce((lambda x, y: x + y), numbers_list)
     return summ
 
 
-sum_three = is_prime(sum_three)
-sum_three(5, 6, 7, 8, 9)
+result = sum_three(5, 6, 7, 8, 9)
+print(result)
