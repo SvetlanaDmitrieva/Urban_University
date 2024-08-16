@@ -27,8 +27,6 @@
 # По итогу вы получите скрипт блокирующий поток до баланса равному 500 и больше или блокирующий,
 # когда происходит попытка снятия при недостаточном балансе.
 
-# from datetime import datetime
-
 
 import random
 from threading import Thread, Lock
