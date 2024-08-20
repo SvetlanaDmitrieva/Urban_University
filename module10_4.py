@@ -57,7 +57,6 @@ class Guest(Thread):
         # sleep(random.randint(3, 10))
         pause =  random.randint(3, 10)
         sleep(pause)
-        print(f'pause = {pause}')
 
 
 class Cafe:
@@ -68,34 +67,32 @@ class Cafe:
         self.tables = list(tables)
 
     def guest_arrival(self, *guests):
-        # all([val == None for val in ls1])
         list_guests = list(guests)
         list_tables = self.tables
         len_list_guests = len(list_guests)
         min_guests_tables = min(len_list_guests, len(self.tables))
         for i in range(min_guests_tables):
-            list_tables[i].guest = list_guests[i].name
-            name = list_tables[i].guest
-            thr1 = Guest(name)
+            list_tables[i].guest = guests[i]
+            thr1 = guests[i]
             thr1.start()
             Cafe.list_thr.append(thr1)
             print(f'{list_guests[i].name} сел(-а) за стол номер {list_tables[i].number}')
         if len_list_guests > min_guests_tables:
             for i in range(min_guests_tables, len_list_guests):
-                self.queue.put(list_guests[i].name)
+                self.queue.put(guests[i])
                 print(f'{list_guests[i].name} в очереди')
 
     def discuss_guests(self):
-        while not (self.queue.empty()) and Cafe.check_table(self):
+        while not (self.queue.empty()) or Cafe.check_table(self):
             for table in self.tables:
-                if not (table.guest is None) and not (Guest(table.guest).is_alive()):
-                    print(f'{table.guest} покушал(-а) и ушёл(ушла)')
+                if not (table.guest is None) and not (table.guest.is_alive()):
+                    print(f'{table.guest.name} покушал(-а) и ушёл(ушла)')
                     print(f'Стол номер {table.number} свободен')
                     table.guest = None
                 if (not (self.queue.empty())) and table.guest is None:
                     table.guest = self.queue.get()
-                    print(f'{table.guest} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}')
-                    thr1 = Guest(table.guest)
+                    print(f'{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}')
+                    thr1 = table.guest
                     thr1.start()
                     Cafe.list_thr.append(thr1)
 
@@ -119,7 +116,7 @@ guests = [Guest(name) for name in guests_names]
 cafe = Cafe(*tables)
 # Приём гостей
 # cafe.guest_arrival(*guests)
-cafe.guest_arrival(guests)
+cafe.guest_arrival(*guests)
 # Обслуживание гостей
 cafe.discuss_guests()
 for thr in Cafe.list_thr:
