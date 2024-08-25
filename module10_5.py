@@ -41,8 +41,8 @@ if __name__ == '__main__':
 #     end = datetime.now()
 #     print(f'Линейный вызов: {end - start}')
 # Многопроцессный
+    start = datetime.now()  
     with Pool(4) as pool:
-        start = datetime.now()
         pool.map(read_info, filenames)
     end = datetime.now()
     print(f'Многопроцессный вызов: {end - start}')
