@@ -36,9 +36,7 @@ else:
 
 print('-----------------------------------------------------------------------')
 
-
-#########################################
-
+##########
 def analysis_data(df, column="0", list_value=None):
     global df_analysis
     if list_value is None:
@@ -89,7 +87,7 @@ max_age = df['Age'].max()
 min_age = df['Age'].min()
 mean_age = round(df['Age'].mean())
 print(f'Максимальный возраст сотрудников - {max_age}, минимальный - {min_age}')
-#
+# 
 less_than_mean_age = df[df['Age'] <= mean_age]
 analysis_data(less_than_mean_age, '0', [min_age, mean_age])
 #
@@ -101,12 +99,10 @@ for team in cleanedList_1:
     analysis_data(team_list, '1', [team, ])
 
 print(df_analysis)
-
-# plotting a line graph
+#
 df_analysis.plot(x='Team', y=['Min sal', 'Mean sal', 'Max sal'], kind="bar", fontsize=5)
 plt.show()
-
-# df_analysis.plot.groupby(['Name', 'Qualification'])
+#
 df_new = df_analysis.groupby('Team')['Max sal'].sum().sort_values()
 ax = df_new.plot.barh(x='Team', y='Max sal')
 plt.show()
