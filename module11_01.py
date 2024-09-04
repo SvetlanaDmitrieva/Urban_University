@@ -99,7 +99,7 @@ for team in cleanedList_1:
     analysis_data(team_list, '1', [team, ])
 
 print(df_analysis)
-#
+##############
 df_analysis.plot(x='Team', y=['Min sal', 'Mean sal', 'Max sal'], kind="bar", fontsize=5)
 plt.show()
 #
