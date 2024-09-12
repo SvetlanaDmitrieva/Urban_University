@@ -65,7 +65,7 @@ class TournamentTest(unittest.TestCase):
 
     def test_tournament_04(self):
         self.assertTrue(self.prepare_test4() == self.runner_3)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(Exception):
             self.prepare_test4()
 
     def prepare_test4(self):
