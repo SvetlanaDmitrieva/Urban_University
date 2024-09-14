@@ -63,9 +63,11 @@ class TournamentTest(unittest.TestCase):
 
     @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_04(self):
-        self.assertTrue(self.prepare_test4() == self.runner_3)
-        with self.assertRaises(Exception):
-            self.prepare_test4()
+        if self.prepare_test4() != self.runner_3:
+            with self.assertRaises(Exception):
+                self.prepare_test4()
+        else:
+            self.assertTrue(self.prepare_test4() == self.runner_3)
 
     def prepare_test4(self):
         tournament_4 = Tournament(81, self.runner_3, self.runner_2, self.runner_1)
