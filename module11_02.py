@@ -11,52 +11,57 @@
 #   - Модуль, к которому объект принадлежит.
 #   - Другие интересные свойства объекта, учитывая его тип (по желанию).
 
-class Introspection_info:
 
-    def __init__(self, name):
-        self.name = name
-        self.type = self.get_type()
-        self.attributes = self.get_attributes()
-        self.methods = self.get_methods()
-        self.module = self.get_module()
+def introspection_info(obj):
 
-    def get_type(self):
-        return type(self.name)
+    info = {}
+    if hasattr(obj, '__name__'):
+        info['name'] = obj.__name__
+    info['type'] = type(obj).__name__
 
-    def get_attributes(self):
-        return dir(self.name)
+    attributes = [attribute
+                  for attribute in dir(obj)
+                  if not callable(getattr(obj, attribute))]
+    info['attributes'] = attributes
+    methods = [method for method in dir(obj)
+               if callable(getattr(obj, method))]
+    info['methods'] = methods
+    info['module'] = getattr(obj, '__module__', __name__)
 
-    def get_methods(self):
-        methods = [meth for meth in self.attributes if callable(getattr(self.name, meth))]
-        return methods
-
-    def get_module(self):
-        return self.name.__class__.__module__
-
-    def __str__(self):
-        return (f'name : {self.name} \ntype: {self.type}\nattributes : {self.attributes} \n'
-                f'methods: {self.methods} \nmodule : {self.module}')
+    return info
 
 
-number_info = Introspection_info(42)
+class OneClass:
+    def __init__(self, *arg):
+        self.value = arg
+
+    def one_method(self):
+        pass
+
+
+number_info = introspection_info(42)
 print(number_info)
 
-number_info = Introspection_info((1,2,3))
+number_info = introspection_info((1, 2, 3))
 print(number_info)
 
-number_info = Introspection_info(abs)
+number_info = introspection_info(abs)
 print(number_info)
 
-number_info = Introspection_info([1,2,3])
+number_info = introspection_info([1, 2, 3])
 print(number_info)
 
-number_info = Introspection_info(list)
+number_info = introspection_info(list)
 print(number_info)
 
-number_info = Introspection_info(sorted)
+number_info = introspection_info(sorted)
 print(number_info)
 
-number_info = Introspection_info(Introspection_info)
+number_info = introspection_info(OneClass)
+print(number_info)
+
+class_instance = OneClass(10)
+number_info = introspection_info(class_instance)
 print(number_info)
 
 
