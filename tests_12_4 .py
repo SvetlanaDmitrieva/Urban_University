@@ -3,7 +3,7 @@ import unittest
 import logging
 
 logging.basicConfig(level=logging.INFO, filemode='w', filename='runner_tests.log', encoding='utf-8',
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+                    format='%(asctime)s --%(name)s - %(levelname)s - %(message)s')
 
 
 class RunnerTest(unittest.TestCase):
