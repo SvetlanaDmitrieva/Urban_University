@@ -43,11 +43,6 @@ button_in_2 = InlineKeyboardButton(text='Формулы расчёта', callbac
 kb_in.add(button_in_1, button_in_2)
 
 
-# @dp.message_handler(commands=["start"])
-# async def start(message):
-#     await message.answer("Расчёт индивидуальной калорийности продуктов:", reply_markup=kb_1)
-
-
 @dp.message_handler(commands=['start'])
 async def start_message(message: types.Message):
     await message.answer(text='Привет! Я бот помогающий твоему здоровью.', reply_markup=kb1)
@@ -63,12 +58,6 @@ class UserState(StatesGroup):
 @dp.message_handler(text=['Рассчитать'])
 async def main_menu(message):
     await message.answer('Выберите опцию:', reply_markup=kb_in)
-
-
-# @dp.message_handler(text='Рассчитать')
-# async def set_age(message):
-#     await message.answer("Введите свой возраст")
-#     await UserState.age.set()
 
 
 @dp.callback_query_handler(text=['formulas'])
