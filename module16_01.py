@@ -18,6 +18,6 @@ async def get_user_id(user_id: int):
     return f"Вы вошли как пользователь {user_id}"
 
 
-@app.get('/user/{first_name}/{last_name}')
-async def get_info_about_user(first_name: str, last_name: str, age: int = 100) :
-    return f"Информация о пользователе :Имя:{first_name} {last_name}, Возраст:{age}"
+@app.get('/user')
+async def get_info_about_user(first_name: str = "first_name", age: int = 100) :
+    return f"Информация о пользователе :Имя:{first_name} , Возраст:{age}"
